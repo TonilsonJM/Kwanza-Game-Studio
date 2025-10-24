@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kwanza Game Studio</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+  <nav>
+  <div class="logo-area">
+    <img src="imagens/logo.png" alt="Logo Kwanza" class="logo" />
+    <h1>Kwanza Game Studio</h1>
+  </div>
+  <button class="hamburger" id="hamburger-menu" aria-label="Abrir menu">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+  <ul id="nav-list">
+    <li><a href="#home">Início</a></li>
+    <li><a href="#projects">Jogos</a></li>
+    <li><a href="#assets">Assets</a></li>
+    <li><a href="#contact">Contato</a></li>
+  </ul>
+</nav>
+
+  </header>
+
+  <section id="home" class="hero">
+    <div class="hero-slider">
+      <img src="imagens/slide1.png" class="active" />
+      <img src="imagens/slide2.png" />
+      <img src="imagens/slide3.png" />
+    </div>
+    <div class="hero-text">
+      <h2>Jogos que representam cultura e inovação</h2>
+      <a href="#faq" class="btn">Saber mais</a>
+    </div>
+  </section>
+
+  <section id="projects">
+    <h2>Meus Jogos</h2>
+    <div class="games-carousel-nav">
+      <button class="games-carousel-btn" id="carousel-left" aria-label="Anterior">&#8592;</button>
+      <button class="games-carousel-btn" id="carousel-right" aria-label="Próximo">&#8594;</button>
+    </div>
+    <div class="games-carousel" id="games-carousel">
+      <div class="game-card">
+        <img src="imagens/A.jpg" alt="Legados do Kwanza" />
+        <div class="game-info">
+          <h3>Legados do Kwanza</h3>
+          <div class="game-desc-box">
+            <p class="game-desc">Jogo 3D de mundo aberto ambientado em uma Angola reimaginada, onde o jogador alterna entre missões de vida cotidiana e desafios heroicos, explorando cultura, história e aventura.</p>
+            <div class="game-meta">
+              <span><strong>Plataformas:</strong> Windows, Android</span><br>
+              <span><strong>Ferramentas:</strong> Unity, Blender, Photoshop</span>
+            </div>
+            <span class="game-unavailable">Indisponível no momento</span>
+          </div>
+        </div>
+      </div>
+      <div class="game-card">
+        <img src="imagens/B.jpg" alt="Sombras da Liberdade" />
+        <div class="game-info">
+          <h3>SilkSong Remake AO</h3>
+          <div class="game-desc-box">
+            <p class="game-desc">Metroidvania 2D em que o protagonista enfrenta inimigos simbólicos em busca da independência, com jogabilidade desafiadora e narrativa inspirada em lutas históricas.</p>
+            <div class="game-meta">
+              <span><strong>Plataformas:</strong> Windows, Android</span><br>
+              <span><strong>Ferramentas:</strong> Unity</span>
+            </div>
+            <span class="game-unavailable">Indisponível no momento</span>
+          </div>
+        </div>
+      </div>
+      <div class="game-card">
+        <img src="imagens/papel.jpg" alt="Guardião do Bié" />
+        <div class="game-info">
+          <h3>Guardião do Bié</h3>
+          <div class="game-desc-box">
+            <p class="game-desc">Aventura 3D nas florestas e savanas do Bié, onde o jogador enfrenta desafios ambientais, resgata animais ameaçados e descobre segredos naturais de Angola.</p>
+            <div class="game-meta">
+              <span><strong>Plataformas:</strong> Windows, PlayStation</span><br>
+              <span><strong>Ferramentas:</strong> Unity Engine, Blender, Substance Painter</span>
+            </div>
+            <span class="game-unavailable">Indisponível no momento</span>
+          </div>
+        </div>
+      </div>
+      <div class="game-card">
+        <img src="imagens/papel.jpg" alt="Mistérios de Luanda" />
+        <div class="game-info">
+          <h3>Mistérios de Luanda</h3>
+          <div class="game-desc-box">
+            <p class="game-desc">Jogo de investigação e puzzle em primeira pessoa, onde o jogador desvenda enigmas históricos e culturais pelas ruas de Luanda, explorando mistérios e resolvendo desafios.</p>
+            <div class="game-meta">
+              <span><strong>Plataformas:</strong> Windows</span><br>
+              <span><strong>Ferramentas:</strong> Unity Engine, Krita, Audacity</span>
+            </div>
+            <span class="game-unavailable">Indisponível no momento</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="assets">
+    <h2>Assets Criados</h2>
+    <div class="assets-grid">
+      <div class="asset-card">
+        <img src="imagens/asset1.jpg" alt="RPG Top-Down 2D Asset" />
+        <div class="asset-info">
+          <h3>RPG Top-Down 2D – Unity Asset</h3>
+          <p class="asset-desc">Pacote completo para criar RPGs top-down na Unity. Inclui sprites, animações, sistema de inventário, combate, mapas e efeitos visuais otimizados para jogos indie.</p>
+          <div class="asset-meta">
+            <span><strong>Compatibilidade:</strong> Unity 2021+</span><br>
+            <span><strong>Ideal para:</strong> Jogos indie, protótipos, projetos educacionais</span>
+          </div>
+          <a href="#" class="btn download-btn" download>Download</a>
+        </div>
+      </div>
+      <div class="asset-card">
+        <img src="imagens/pixel.jpg" alt="Pixel Art Characters Asset" />
+        <div class="asset-info">
+          <h3>Pixel Art Characters – Asset Pack</h3>
+          <p class="asset-desc">Coleção de personagens em pixel art prontos para jogos 2D. Inclui animações de movimento, ataque, dano e morte, além de variações de cores e estilos.</p>
+          <div class="asset-meta">
+            <span><strong>Compatibilidade:</strong> Unity, Godot, Construct</span><br>
+            <span><strong>Ideal para:</strong> Plataformas, RPGs, jogos retrô</span>
+          </div>
+          <a href="#" class="btn download-btn" download>Download</a>
+        </div>
+      </div>
+      <div class="asset-card">
+        <img src="imagens/menu.jpeg" alt="UI Fantasy Asset" />
+        <div class="asset-info">
+          <h3>UI Fantasy – Interface para Jogos</h3>
+          <p class="asset-desc">Kit de interface gráfica com botões, barras de vida, inventário, menus e ícones em estilo fantasia. Fácil de integrar e personalizar para qualquer engine.</p>
+          <div class="asset-meta">
+            <span><strong>Compatibilidade:</strong> Unity, Unreal, Godot</span><br>
+            <span><strong>Ideal para:</strong> RPG, aventura, jogos mobile</span>
+          </div>
+          <a href="#" class="btn download-btn" download>Download</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq" class="faq-section">
+    <h2>Perguntas Frequentes</h2>
+    <div class="faq-container">
+      <div class="faq-item">
+        <button class="faq-question">Qual é a origem do desenvolvedor do Kwanza Game Studio?</button>
+        <div class="faq-answer">
+          <p>O desenvolvedor responsável pelo Kwanza Game Studio é angolano, nascido e criado em Angola. Toda a inspiração para os projetos vem da rica cultura, história e diversidade do país, buscando sempre valorizar e representar elementos autênticos da identidade angolana nos jogos desenvolvidos.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">Quem está por trás do Kwanza Game Studio?</button>
+        <div class="faq-answer">
+          <p>O estúdio é liderado por TonilsonJM, nome artístico de António Monteiro. Com paixão por tecnologia, arte e cultura, TonilsonJM atua como desenvolvedor solo, responsável por todas as etapas do processo criativo, desde a concepção das ideias até a programação, arte e publicação dos jogos. Sua missão é criar experiências inovadoras que dialoguem com o público angolano e internacional.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">Algum dos projetos já recebeu financiamento externo?</button>
+        <div class="faq-answer">
+          <p>Até o momento, nenhum dos projetos desenvolvidos pelo Kwanza Game Studio recebeu financiamento externo, patrocínio ou investimento. Todo o trabalho é realizado de forma independente, com recursos próprios, o que reforça o compromisso e a dedicação do desenvolvedor em entregar produtos de qualidade mesmo diante de desafios financeiros.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">O desenvolvimento dos jogos é feito em equipe?</button>
+        <div class="faq-answer">
+          <p>Não. Todo o desenvolvimento dos jogos é realizado de forma individual por TonilsonJM. Desde a programação, design, modelagem 3D, animação, até a trilha sonora e testes, cada etapa é conduzida pessoalmente, garantindo uma visão única e autoral em cada projeto lançado pelo estúdio.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">Quais são as principais ferramentas utilizadas no desenvolvimento?</button>
+        <div class="faq-answer">
+          <p>O processo de desenvolvimento envolve o uso de diversas ferramentas profissionais, como Unity para programação e engine de jogos, Visual Studio Code para codificação, Blender para modelagem e animação 3D, Photoshop para edição de imagens, DragonBones para animações 2D, entre outras soluções que auxiliam na criação de experiências ricas e inovadoras.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer id="contact">
+    <div class="footer-container">
+      <div class="footer-section">
+        <h3>Sobre Nós</h3>
+        <p>Kwanza Game Studio é um estúdio de desenvolvimento de jogos focado em criar experiências únicas que celebram a cultura angolana.</p>
+      </div>
+      
+      <div class="footer-section">
+        <h3>Contate-nos</h3>
+        <div class="contact-info">
+          <div class="contact-item">
+            <i class="contact-icon">📱</i>
+            <span>+244 959 621 523</span>
+          </div>
+          <div class="contact-item">
+            <i class="contact-icon">📧</i>
+            <a href="mailto:tonilsonmonteiro2@gmail.com">tonilsonmonteiro2@gmail.com</a>
+          </div>
+          <div class="contact-item">
+            <i class="contact-icon">📘</i>
+            <a href="https://www.facebook.com/profile.php?id=61577800096584" target="_blank">Kwanza Games Studio</a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="footer-section">
+        <h3>Redes Sociais</h3>
+        <div class="social-links">
+          <a href="#" class="social-link">Instagram</a>
+          <a href="#" class="social-link">Twitter</a>
+          <a href="#" class="social-link">LinkedIn</a>
+        </div>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <div class="footer-logo">
+        <img src="imagens/logo.png" alt="Logo Kwanza" />
+        <span>Kwanza Game Studio</span>
+      </div>
+      <p class="copyright">© 2025 Kwanza Game Studio. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

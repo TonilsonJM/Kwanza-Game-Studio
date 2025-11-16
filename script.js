@@ -1,115 +1,143 @@
-// Hero slideshow automático
-const slides = document.querySelectorAll('.hero-slider img');
-let currentSlide = 0;
+const hamburger = document.getElementById('hamburger');
+const header = document.querySelector('.header');
+const modal = document.getElementById('contactModal');
+const closeBtn = document.querySelector('.close');
+const contactLinks = document.querySelectorAll('a[href="#contact"]');
+const navLinks = document.querySelectorAll('.nav-link');
+const navMenu = document.querySelector('.nav-menu');
 
-function showSlide(index) {
-  slides.forEach((slide, i) => {
-    slide.classList.remove('active');
-    if (i === index) slide.classList.add('active');
-  });
+/* Add null checks to prevent runtime errors */
+if (!hamburger || !header || !modal || !closeBtn || !navMenu) {
+    console.error('[v0] Missing required DOM elements');
 }
 
-function nextSlide() {
-  currentSlide = (currentSlide + 1) % slides.length;
-  showSlide(currentSlide);
-}
-
-clearInterval(window.heroInterval);
-window.heroInterval = setInterval(nextSlide, 7000); // Troca a cada 7 segundos
-
-// Efeito de revelação nos cards de projeto
-const gameCards = document.querySelectorAll('.game-card');
-
-gameCards.forEach(card => {
-  card.addEventListener('mouseenter', () => {
-    card.classList.add('hovered');
-  });
-  card.addEventListener('mouseleave', () => {
-    card.classList.remove('hovered');
-  });
-});
-
-// Scroll suave para navegação
-document.querySelectorAll('nav a').forEach(link => {
-  link.addEventListener('click', function(e) {
-    e.preventDefault();
-    const target = document.querySelector(this.getAttribute('href'));
-    target.scrollIntoView({ behavior: 'smooth' });
-  });
-});
-
-// FAQ Accordion
-const faqQuestions = document.querySelectorAll('.faq-question');
-faqQuestions.forEach((btn) => {
-  btn.addEventListener('click', function() {
-    const item = this.parentElement;
-    const allItems = document.querySelectorAll('.faq-item');
-    allItems.forEach((el) => {
-      if (el !== item) el.classList.remove('active');
+if (hamburger) {
+    const navLinksContainer = document.querySelector('.nav-links');
+    hamburger.addEventListener('click', (e) => {
+        e.stopPropagation();
+        hamburger.classList.toggle('active');
+        // toggle nav menu container (se existir)
+        if (navMenu) navMenu.classList.toggle('active');
+        // toggle links container também — protege contra regras CSS que escondem .nav-links diretamente
+        if (navLinksContainer) navLinksContainer.classList.toggle('active');
     });
-    item.classList.toggle('active');
-  });
-});
-
-// Carrossel de Jogos - rolagem infinita suave
-const carousel = document.getElementById('games-carousel');
-const btnLeft = document.getElementById('carousel-left');
-const btnRight = document.getElementById('carousel-right');
-
-function scrollCarousel(direction) {
-  const card = carousel.querySelector('.game-card');
-  if (!card) return;
-  const scrollAmount = card.offsetWidth + 30; // gap
-  if (direction === 'left') {
-    // Clona o último e coloca no início, ajusta scroll, depois anima
-    const last = carousel.lastElementChild.cloneNode(true);
-    carousel.insertBefore(last, carousel.firstElementChild);
-    carousel.scrollLeft += scrollAmount;
-    setTimeout(() => {
-      carousel.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
-      setTimeout(() => {
-        carousel.removeChild(carousel.lastElementChild);
-      }, 400);
-    }, 10);
-  } else {
-    // Anima para a direita, depois move o primeiro para o fim
-    carousel.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-    setTimeout(() => {
-      const first = carousel.firstElementChild.cloneNode(true);
-      carousel.appendChild(first);
-      carousel.removeChild(carousel.firstElementChild);
-      carousel.scrollLeft -= scrollAmount;
-    }, 400);
-  }
-}
-if (btnLeft && btnRight && carousel) {
-  btnLeft.addEventListener('click', () => scrollCarousel('left'));
-  btnRight.addEventListener('click', () => scrollCarousel('right'));
 }
 
-// Ajustar botão Saber Mais para rolar até o FAQ
-const saberMaisBtn = document.querySelector('.hero-text .btn');
-if (saberMaisBtn) {
-  saberMaisBtn.addEventListener('click', function(e) {
-    e.preventDefault();
-    const faq = document.getElementById('faq');
-    if (faq) faq.scrollIntoView({ behavior: 'smooth' });
-  });
-}
-
-// Menu Hamburguer Responsivo
-const hamburger = document.getElementById('hamburger-menu');
-const navList = document.getElementById('nav-list');
-if (hamburger && navList) {
-  hamburger.addEventListener('click', function() {
-    hamburger.classList.toggle('active');
-    navList.classList.toggle('active');
-  });
-  // Fecha o menu ao clicar em um item
-  navList.querySelectorAll('a').forEach(link => {
+navLinks.forEach(link => {
     link.addEventListener('click', () => {
-      hamburger.classList.remove('active');
-      navList.classList.remove('active');
+        if (hamburger) hamburger.classList.remove('active');
+        if (navMenu) navMenu.classList.remove('active');
+        const navLinksContainer = document.querySelector('.nav-links');
+        if (navLinksContainer) navLinksContainer.classList.remove('active');
+        
+        navLinks.forEach(l => l.classList.remove('active'));
+        link.classList.add('active');
     });
-  });
+});
+
+// Header scroll effect
+window.addEventListener('scroll', () => {
+    if (window.scrollY > 100) {
+        header.classList.add('scrolled');
+    } else {
+        header.classList.remove('scrolled');
+    }
+});
+
+// Contact modal
+contactLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+        e.preventDefault();
+        modal.classList.add('show');
+        document.body.style.overflow = 'hidden';
+    });
+});
+
+if (closeBtn) {
+    closeBtn.addEventListener('click', () => {
+        modal.classList.remove('show');
+        document.body.style.overflow = 'auto';
+    });
 }
+
+window.addEventListener('click', (e) => {
+    if (e.target === modal) {
+        modal.classList.remove('show');
+        document.body.style.overflow = 'auto';
+    }
+});
+
+// Form submission
+/* Add null check for contactForm */
+const contactForm = document.querySelector('.contact-form');
+if (contactForm) {
+    contactForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        alert('Thank you! We will get back to you soon.');
+        contactForm.reset();
+        modal.classList.remove('show');
+        document.body.style.overflow = 'auto';
+    });
+}
+
+// Smooth scroll for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        const href = this.getAttribute('href');
+        if (href !== '#' && href !== '#contact') {
+            e.preventDefault();
+            const target = document.querySelector(href);
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+    });
+});
+
+// Animation on scroll
+const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+};
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.style.animation = 'fadeInUp 0.6s ease forwards';
+            observer.unobserve(entry.target);
+        }
+    });
+}, observerOptions);
+
+document.querySelectorAll('.service-item, .blog-item, .case-item, .why-item, .company-badge').forEach(el => {
+    el.style.opacity = '0';
+    observer.observe(el);
+});
+
+// Troca de idioma PT/EN
+const langBtns = document.querySelectorAll('.lang-btn');
+langBtns.forEach(btn => {
+    btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        const lang = btn.textContent.trim().toLowerCase();
+        document.querySelectorAll('[data-pt], [data-en]').forEach(el => {
+            if (lang === 'pt') {
+                if (el.dataset.pt) {
+                    if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                        el.placeholder = el.dataset.pt;
+                    } else {
+                        el.innerHTML = el.dataset.pt;
+                    }
+                }
+            } else {
+                if (el.dataset.en) {
+                    if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                        el.placeholder = el.dataset.en;
+                    } else {
+                        el.innerHTML = el.dataset.en;
+                    }
+                }
+            }
+        });
+    });
+});

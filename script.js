@@ -6,20 +6,39 @@ const contactLinks = document.querySelectorAll('a[href="#contact"]');
 const navLinks = document.querySelectorAll('.nav-link');
 const navMenu = document.querySelector('.nav-menu');
 
+const THEME_KEY = 'kwanza-theme';
+
+function getTheme() {
+    return localStorage.getItem(THEME_KEY) || 'dark';
+}
+
+function setTheme(theme) {
+    document.body.setAttribute('data-theme', theme);
+    localStorage.setItem(THEME_KEY, theme);
+}
+
+function toggleTheme() {
+    const current = getTheme();
+    const next = current === 'dark' ? 'light' : 'dark';
+    setTheme(next);
+}
+
+document.body.setAttribute('data-theme', getTheme());
+
+document.querySelectorAll('.theme-toggle').forEach(btn => {
+    btn.addEventListener('click', toggleTheme);
+});
+
 /* Add null checks to prevent runtime errors */
 if (!hamburger || !header || !modal || !closeBtn || !navMenu) {
     console.error('[v0] Missing required DOM elements');
 }
 
 if (hamburger) {
-    const navLinksContainer = document.querySelector('.nav-links');
     hamburger.addEventListener('click', (e) => {
         e.stopPropagation();
         hamburger.classList.toggle('active');
-        // toggle nav menu container (se existir)
         if (navMenu) navMenu.classList.toggle('active');
-        // toggle links container também — protege contra regras CSS que escondem .nav-links diretamente
-        if (navLinksContainer) navLinksContainer.classList.toggle('active');
     });
 }
 
@@ -27,9 +46,6 @@ navLinks.forEach(link => {
     link.addEventListener('click', () => {
         if (hamburger) hamburger.classList.remove('active');
         if (navMenu) navMenu.classList.remove('active');
-        const navLinksContainer = document.querySelector('.nav-links');
-        if (navLinksContainer) navLinksContainer.classList.remove('active');
-        
         navLinks.forEach(l => l.classList.remove('active'));
         link.classList.add('active');
     });
@@ -80,8 +96,72 @@ if (contactForm) {
     });
 }
 
-// Smooth scroll for anchor links
+// Project detail modal (Ver Mais)
+const projectModal = document.getElementById('projectModal');
+const projectModalBody = document.getElementById('projectModalBody');
+const closeProjectBtn = document.querySelector('.close-project');
+
+const ilhaDesertaContent = `
+    <div class="project-detail" data-project="ilha-deserta">
+        <h2 data-pt="Ilha Deserta" data-en="Ilha Deserta">Ilha Deserta</h2>
+        <p class="project-detail-label"><strong data-pt="OBJECTIVO" data-en="OBJECTIVE">OBJECTIVO</strong></p>
+        <p class="project-detail-text" data-pt="Recolher materiais para construir um barco e fugir da ilha enquanto coleta água e comida para sobreviver." data-en="Gather materials to build a boat and escape the island while collecting water and food to survive.">Recolher materiais para construir um barco e fugir da ilha enquanto coleta água e comida para sobreviver.</p>
+        <p class="project-detail-label"><strong data-pt="HISTORIA" data-en="STORY">HISTORIA</strong></p>
+        <p class="project-detail-text" data-pt="Em dias de férias Aveliny e amigos saíram para viajar de iate, mas algo inesperado acontece, o iate é invadido por terroristas, então Aveliny avista uma ilha e pula do navio, nada em direção à ilha e consegue sobreviver. Mas agora, como Aveliny vai escapar da ilha? Ela precisa sobreviver até enquanto conserta um barco de madeira para tentar escapar da ilha deserta." data-en="On a holiday, Aveliny and friends went on a yacht trip, but something unexpected happens – the yacht is taken over by terrorists. Aveliny spots an island and jumps off the ship, swims to the island and survives. Now, how will Aveliny escape the island? She must survive while repairing a wooden boat to try to escape the desert island.">Em dias de férias Aveliny e amigos saíram para viajar de iate, mas algo inesperado acontece, o iate é invadido por terroristas, então Aveliny avista uma ilha e pula do navio, nada em direção à ilha e consegue sobreviver. Mas agora, como Aveliny vai escapar da ilha? Ela precisa sobreviver até enquanto conserta um barco de madeira para tentar escapar da ilha deserta.</p>
+        <a href="https://tonilsonjm.itch.io/ilha-deserta" target="_blank" rel="noopener noreferrer" class="btn btn-primary project-download-btn" data-pt="Baixar" data-en="Download">Baixar</a>
+    </div>
+`;
+
+function openProjectModal(projectId) {
+    if (!projectModal || !projectModalBody) return;
+    if (projectId === 'ilha-deserta') {
+        projectModalBody.innerHTML = ilhaDesertaContent;
+        projectModalBody.querySelector('.project-download-btn').style.display = '';
+    } else {
+        const item = document.querySelector(`.case-item[data-project="${projectId}"]`);
+        const title = item ? (item.querySelector('h3')?.textContent || '') : '';
+        const desc = item ? (item.querySelector('.case-item p')?.textContent || '') : '';
+        projectModalBody.innerHTML = `
+            <div class="project-detail">
+                <h2>${title}</h2>
+                <p class="project-detail-text">${desc}</p>
+                <p class="project-detail-coming" data-pt="Em breve mais informações." data-en="More information coming soon.">Em breve mais informações.</p>
+            </div>
+        `;
+    }
+    projectModal.classList.add('show');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeProjectModal() {
+    if (projectModal) {
+        projectModal.classList.remove('show');
+        document.body.style.overflow = 'auto';
+    }
+}
+
+document.querySelectorAll('.case-link-detail').forEach(link => {
+    link.addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        const projectId = this.getAttribute('data-project');
+        if (projectId) openProjectModal(projectId);
+    });
+});
+
+if (closeProjectBtn) {
+    closeProjectBtn.addEventListener('click', closeProjectModal);
+}
+
+if (projectModal) {
+    projectModal.addEventListener('click', (e) => {
+        if (e.target === projectModal) closeProjectModal();
+    });
+}
+
+// Smooth scroll for anchor links (exclui .case-link-detail que abre o modal)
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    if (anchor.classList.contains('case-link-detail')) return;
     anchor.addEventListener('click', function (e) {
         const href = this.getAttribute('href');
         if (href !== '#' && href !== '#contact') {
